@@ -3411,7 +3411,7 @@
       };
     }
 
-    is_hash_block({A, B}) {
+    is_format_block({A, B}) {
       const format = cast.toString(A).toLowerCase();
       return true;
     }
