@@ -3318,6 +3318,18 @@
 
   const cast = Scratch.Cast;
 
+  const encoding_formats = [
+    'base64',
+    'base64 url', 
+    'dec', 
+    'hex', 
+    'utf8', 
+    'utf16', 
+    'utf32', 
+    'latin1',
+    '...',
+  ];
+
   const hashing_algorithms = [
     'sha-3-512',
     'sha-3-384',
@@ -3333,34 +3345,27 @@
   ];
 
   class CryptoScratch {
-
     getInfo() {
       return {
 
         id: 'truefantomcrypto',
         name: 'Crypto',
-
         color1: '#5dbf00',
-
         menuIconURI: icon_uri,
 
         blocks: [
           {
-            opcode: 'is_hash_block',
+            opcode: 'is_format_block',
             blockType: Scratch.BlockType.BOOLEAN,
-            text: 'is [IMAGE] [A] [B] ?',
+            text: 'is [A] [B] ?',
             arguments: {
               A: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'hash_menu'
+                menu: 'format_menu'
               },
               B: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: 'apple'
-              },
-              IMAGE: {
-                type: Scratch.ArgumentType.IMAGE,
-                dataURI: hash_uri
               }
             }
           },
@@ -3368,11 +3373,11 @@
           {
             opcode: 'hash_block',
             blockType: Scratch.BlockType.REPORTER,
-            text: '[IMAGE] [A] with global salt [B] and local salt [C] of [D] with [E] iterations',
+            text: 'hash [A] with global salt: [B] local salt: [C] of [D] with [E] iterations',
             arguments: {
               A: {
                 type: Scratch.ArgumentType.STRING,
-                menu: 'hash_menu'
+                menu: 'algorithms_menu'
               },
               B: {
                 type: Scratch.ArgumentType.STRING,
@@ -3389,16 +3394,16 @@
               E: {
                 type: Scratch.ArgumentType.NUMBER,
                 defaultValue: 10000
-              },
-              IMAGE: {
-                type: Scratch.ArgumentType.IMAGE,
-                dataURI: hash_uri
               }
             }
           }
         ],
         menus: {
-          hash_menu: {
+          format_menu: {
+            acceptReporters: false,
+            items: encoding_formats
+          },
+          algorithms_menu: {
             acceptReporters: false,
             items: hashing_algorithms
           }
@@ -3407,31 +3412,8 @@
     }
 
     is_hash_block({A, B}) {
-      const mode = cast.toString(A).toLowerCase();
-      switch (mode) {
-        case 'sha-3-512': default:
-          return true;
-        case 'sha-3-384':
-          return true;
-        case 'sha-3-256':
-          return true;
-        case 'sha-3-224':
-          return true;
-        case 'sha-2-512':
-          return true;
-        case 'sha-2-384':
-          return true;
-        case 'sha-2-256':
-          return true;
-        case 'sha-2-224':
-          return true;
-        case 'sha-1-160':
-          return true;
-        case 'ripemd-160':
-          return true;
-        case 'md-5-128':
-          return true;
-      }
+      const format = cast.toString(A).toLowerCase();
+      return true;
     }
     hash_block({A, B, C, D, E}) {
       const mode = cast.toString(A).toLowerCase();
