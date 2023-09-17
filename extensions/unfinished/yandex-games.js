@@ -40,7 +40,7 @@
           {
             opcode: "debugenabled",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "Is debug mode Enabled (nonworking)",
+            text: "Is debug mode Enabled",
           },
           {
             opcode: "setdebug",
