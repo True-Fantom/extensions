@@ -28,29 +28,31 @@
 
         blocks: [
           {
+            opcode: "sdkenabled",
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: "Is SDK Enabled",
+          },
+          {
             opcode: "initsdk",
             blockType: Scratch.BlockType.COMMAND,
             text: "Initialize YaGames SDK",
+          },
+          "---",
+          {
+            opcode: "debugenabled",
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: "Is debug mode Enabled (nonworking)",
           },
           {
             opcode: "setdebug",
             blockType: Scratch.BlockType.COMMAND,
             text: "Enable debug mode",
           },
+          "---",
           {
-            opcode: "getsavedvar",
-            blockType: Scratch.BlockType.REPORTER,
-            text: "Get saved variable [NAME] default value [DEFVAL]",
-            arguments: {
-              NAME: {
-                defaultValue: "money",
-                type: Scratch.ArgumentType.STRING,
-              },
-              DEFVAL: {
-                defaultValue: "100",
-                type: Scratch.ArgumentType.STRING,
-              },
-            },
+            opcode: "dataloaded",
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: "Is data loaded?",
           },
           {
             opcode: "setsavedvar",
@@ -68,15 +70,21 @@
             },
           },
           {
-            opcode: "sdkenabled",
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: "Is SDK Enabled",
+            opcode: "getsavedvar",
+            blockType: Scratch.BlockType.REPORTER,
+            text: "Get saved variable [NAME] default value [DEFVAL]",
+            arguments: {
+              NAME: {
+                defaultValue: "money",
+                type: Scratch.ArgumentType.STRING,
+              },
+              DEFVAL: {
+                defaultValue: "100",
+                type: Scratch.ArgumentType.STRING,
+              },
+            },
           },
-          {
-            opcode: "dataloaded",
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: "Is data loaded?",
-          },
+          "---",
           {
             opcode: "savevars",
             blockType: Scratch.BlockType.COMMAND,
@@ -92,6 +100,7 @@
             blockType: Scratch.BlockType.COMMAND,
             text: "Reset progress",
           },
+          "---",
           {
             opcode: "showfullscreen",
             blockType: Scratch.BlockType.COMMAND,
@@ -108,6 +117,7 @@
             blockType: Scratch.BlockType.BOOLEAN,
             text: "Is fullscreen ad closed?",
           },
+          "---",
           {
             opcode: "showrewarded",
             blockType: Scratch.BlockType.COMMAND,
@@ -124,6 +134,7 @@
             blockType: Scratch.BlockType.BOOLEAN,
             text: "Did Rewarded Ad give reward?",
           },
+          "---",
           {
             opcode: "canRateGame",
             blockType: Scratch.BlockType.BOOLEAN,
@@ -134,6 +145,7 @@
             blockType: Scratch.BlockType.COMMAND,
             text: "Open Rating Popup",
           },
+          "---",
           {
             opcode: "getDeviceType",
             blockType: Scratch.BlockType.REPORTER,
