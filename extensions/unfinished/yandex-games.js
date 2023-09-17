@@ -17,150 +17,150 @@
   class YaGames {
     getInfo() {
       return {
-        id: 'truefantomyagames',
-        name: 'YaGames',
-        color1: '#4C1CBA',
+        id: "truefantomyagames",
+        name: "YaGames",
+        color1: "#4C1CBA",
 
         blocks: [
           {
-            opcode: 'initsdk',
+            opcode: "initsdk",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Initialize YaGames SDK'
+            text: "Initialize YaGames SDK",
           },
           {
-            opcode: 'setdebug',
+            opcode: "setdebug",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Enable debug mode'
+            text: "Enable debug mode",
           },
           {
-            opcode: 'getsavedvar',
+            opcode: "getsavedvar",
             blockType: Scratch.BlockType.REPORTER,
-            text: 'Get saved variable [NAME] default value [DEFVAL]',
+            text: "Get saved variable [NAME] default value [DEFVAL]",
             arguments: {
               NAME: {
-                defaultValue: 'money',
-                type: Scratch.ArgumentType.STRING
+                defaultValue: "money",
+                type: Scratch.ArgumentType.STRING,
               },
               DEFVAL: {
-                defaultValue: '100',
-                type: Scratch.ArgumentType.STRING
-              }
-            }
+                defaultValue: "100",
+                type: Scratch.ArgumentType.STRING,
+              },
+            },
           },
           {
-            opcode: 'setsavedvar',
+            opcode: "setsavedvar",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Set saved variable [NAME] value [VALUE]',
+            text: "Set saved variable [NAME] value [VALUE]",
             arguments: {
               NAME: {
-                defaultValue: 'money',
-                type: Scratch.ArgumentType.STRING
+                defaultValue: "money",
+                type: Scratch.ArgumentType.STRING,
               },
               VALUE: {
-                defaultValue: '100',
-                type: Scratch.ArgumentType.STRING
-              }
-            }
+                defaultValue: "100",
+                type: Scratch.ArgumentType.STRING,
+              },
+            },
           },
           {
-            opcode: 'sdkenabled',
+            opcode: "sdkenabled",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: 'Is SDK Enabled'
+            text: "Is SDK Enabled",
           },
           {
-            opcode: 'dataloaded',
+            opcode: "dataloaded",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: 'Is data loaded?'
+            text: "Is data loaded?",
           },
           {
-            opcode: 'savevars',
+            opcode: "savevars",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Save progress'
+            text: "Save progress",
           },
           {
-            opcode: 'loadvars',
+            opcode: "loadvars",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Load progress'
+            text: "Load progress",
           },
           {
-            opcode: 'resetprogress',
+            opcode: "resetprogress",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Reset progress'
+            text: "Reset progress",
           },
           {
-            opcode: 'showfullscreen',
+            opcode: "showfullscreen",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Show fullscreen ad'
+            text: "Show fullscreen ad",
           },
           {
-            opcode: 'whenFullscreenClosed',
+            opcode: "whenFullscreenClosed",
             blockType: Scratch.BlockType.HAT,
-            func: 'isFullscreenClosed',
-            text: 'When fullscreen ad closed'
+            func: "isFullscreenClosed",
+            text: "When fullscreen ad closed",
           },
           {
-            opcode: 'fullscreenClosed',
+            opcode: "fullscreenClosed",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: 'Is fullscreen ad closed?'
+            text: "Is fullscreen ad closed?",
           },
           {
-            opcode: 'showrewarded',
+            opcode: "showrewarded",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Show rewarded ad'
+            text: "Show rewarded ad",
           },
           {
-            opcode: 'whenRewardedWatched',
+            opcode: "whenRewardedWatched",
             blockType: Scratch.BlockType.HAT,
-            func: 'isRewardedWatched',
-            text: 'When rewarded ad shown'
+            func: "isRewardedWatched",
+            text: "When rewarded ad shown",
           },
           {
-            opcode: 'rewardedRewarded',
+            opcode: "rewardedRewarded",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: 'Did Rewarded Ad give reward?'
+            text: "Did Rewarded Ad give reward?",
           },
           {
-            opcode: 'canRateGame',
+            opcode: "canRateGame",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: 'Can rate game?'
+            text: "Can rate game?",
           },
           {
-            opcode: 'openRatePopup',
+            opcode: "openRatePopup",
             blockType: Scratch.BlockType.COMMAND,
-            text: 'Open Rating Popup'
+            text: "Open Rating Popup",
           },
           {
-            opcode: 'getDeviceType',
+            opcode: "getDeviceType",
             blockType: Scratch.BlockType.REPORTER,
-            text: 'Device Type'
+            text: "Device Type",
           },
           {
-            opcode: 'isDesktop',
+            opcode: "isDesktop",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: 'Is playing on Desktop?'
+            text: "Is playing on Desktop?",
           },
           {
-            opcode: 'isMobile',
+            opcode: "isMobile",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: 'Is playing on Mobile?'
+            text: "Is playing on Mobile?",
           },
           {
-            opcode: 'isTablet',
+            opcode: "isTablet",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: 'Is playing on Tablet?'
+            text: "Is playing on Tablet?",
           },
           {
-            opcode: 'isTV',
+            opcode: "isTV",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: 'Is playing on TV?'
+            text: "Is playing on TV?",
           },
-        ]
+        ],
       };
     }
 
     getDeviceType() {
       if (window.ysdkdebug == true) {
-        return 'desktop';
+        return "desktop";
       }
       return ysdk.deviceInfo.type;
     }
@@ -201,7 +201,7 @@
     openRatePopup() {
       if (window.ysdkdebug == true) {
         window.alreadyrated = true;
-        alert('DEBUG Rate our game');
+        alert("DEBUG Rate our game");
         return;
       }
       ysdk.feedback.requestReview();
@@ -210,7 +210,7 @@
       console.log("wathced!");
     }
     rewardedRewarded() {
-      return (window.isrewarded == true);
+      return window.isrewarded == true;
     }
     triggerIRW() {
       window.triggerIRW = true;
@@ -234,31 +234,35 @@
       return false;
     }
     fullscreenClosed() {
-      return (window.isfullscreenclosed == true);
+      return window.isfullscreenclosed == true;
     }
     initsdk() {
       function onBlur() {
-        if(window.isAdOpened == false){
+        if (window.isAdOpened == false) {
           Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
         }
-      };
-      function onFocus(){
-        if(window.isAdOpened == false){
+      }
+      function onFocus() {
+        if (window.isAdOpened == false) {
           Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
         }
-      };
+      }
       window.onfocus = onFocus;
       window.onblur = onBlur;
       window.isAdOpened = false;
-      document.addEventListener('visibilitychange', function () {
-        if(window.isAdOpened == false){
-          if (document.hidden) {
-            Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
-          } else {
-            Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
+      document.addEventListener(
+        "visibilitychange",
+        function () {
+          if (window.isAdOpened == false) {
+            if (document.hidden) {
+              Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
+            } else {
+              Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
+            }
           }
-        }
-      }, false);
+        },
+        false,
+      );
       window.savedData = "";
       if (window.ysdkdebug == true) {
         window.ysdk = {};
@@ -270,19 +274,20 @@
       document.head.appendChild(script);
       script.onload = async function () {
         console.log(YaGames);
-        await YaGames.init().then(ysdk => {
+        await YaGames.init().then((ysdk) => {
           window.ysdk = ysdk;
           ysdk.features.LoadingAPI.ready();
-          ysdk.getPlayer({scopes: false}).then(_player => {
-            var player = _player;
-            window.ysdkplayer = player;
-            console.log(window.ysdkplayer);
-          }).catch((err) => {
-
-          });
+          ysdk
+            .getPlayer({ scopes: false })
+            .then((_player) => {
+              var player = _player;
+              window.ysdkplayer = player;
+              console.log(window.ysdkplayer);
+            })
+            .catch((err) => {});
         });
         console.log("Initialized YaGames!");
-      }
+      };
     }
     async loadvars() {
       if (window.ysdkdebug != true) {
@@ -307,7 +312,11 @@
       return window.ysdkdata[args.NAME] || args.DEFVAL;
     }
     savevars() {
-      if (window.ysdkplayer != undefined && window.ysdkdata != undefined && window.savedData !== JSON.stringify(window.ysdkdata))
+      if (
+        window.ysdkplayer != undefined &&
+        window.ysdkdata != undefined &&
+        window.savedData !== JSON.stringify(window.ysdkdata)
+      )
         window.ysdkplayer.setData(window.ysdkdata, true).then(() => {
           window.savedData = JSON.stringify(window.ysdkdata);
           console.log("Successfully saved data!");
@@ -315,17 +324,21 @@
     }
     resetprogress() {
       window.ysdkdata = {};
-      if (window.ysdkplayer != undefined && window.ysdkdata != undefined && window.savedData !== JSON.stringify(window.ysdkdata))
+      if (
+        window.ysdkplayer != undefined &&
+        window.ysdkdata != undefined &&
+        window.savedData !== JSON.stringify(window.ysdkdata)
+      )
         window.ysdkplayer.setData(window.ysdkdata, true).then(() => {
           window.savedData = JSON.stringify(window.ysdkdata);
           console.log("Successfully saved data!");
         });
     }
     sdkenabled() {
-      return (window.ysdk != undefined);
+      return window.ysdk != undefined;
     }
     dataloaded() {
-      return ((window.ysdkplayer != undefined) && window.ysdkdata != undefined);
+      return window.ysdkplayer != undefined && window.ysdkdata != undefined;
     }
     deafAE() {
       Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
@@ -358,9 +371,9 @@
               window.isfullscreenclosed = false;
               window.triggerIFC = true;
               window.isAdOpened = false;
-            }
-          }
-        })
+            },
+          },
+        });
       }
     }
     showrewarded() {
@@ -369,11 +382,13 @@
       window.isAdOpened = true;
       this.deafAE();
       if (window.ysdkdebug == true) {
-        var pr = prompt('DEBUG Rewarded Ad! Write C to close it, write R to get trigger reward.');
-        if (pr.toLowerCase() == 'c') {
+        var pr = prompt(
+          "DEBUG Rewarded Ad! Write C to close it, write R to get trigger reward.",
+        );
+        if (pr.toLowerCase() == "c") {
           window.isrewardedwatched = true;
           window.isrewarded = false;
-        } else if (pr.toLowerCase() == 'r') {
+        } else if (pr.toLowerCase() == "r") {
           window.isrewardedwatched = true;
           window.isrewarded = true;
         }
@@ -402,8 +417,8 @@
             window.isrewardedwatched = false;
             window.isrewarded = false;
             window.isAdOpened = false;
-          }
-        }
+          },
+        },
       });
     }
   }
