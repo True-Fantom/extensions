@@ -352,6 +352,9 @@
     sdkenabled() {
       return window.ysdk != undefined;
     }
+    debugenabled() {
+      return window.ysdkdebug === true;
+    }
     dataloaded() {
       return window.ysdkplayer != undefined && window.ysdkdata != undefined;
     }
