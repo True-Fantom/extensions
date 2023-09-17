@@ -43,9 +43,14 @@
             text: "Is debug mode Enabled",
           },
           {
-            opcode: "setdebug",
+            opcode: "enabledebug",
             blockType: Scratch.BlockType.COMMAND,
             text: "Enable debug mode",
+          },
+          {
+            opcode: "disabledebug",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "Disable debug mode",
           },
           "---",
           {
@@ -315,9 +320,13 @@
         window.ysdkdata = {};
       }
     }
-    setdebug() {
+    enabledebug() {
       window.alreadyrated = false;
       window.ysdkdebug = true;
+    }
+    disabledebug() {
+      window.alreadyrated = false;
+      window.ysdkdebug = false;
     }
     setsavedvar(args) {
       window.ysdkdata[args.NAME] = args.VALUE;
