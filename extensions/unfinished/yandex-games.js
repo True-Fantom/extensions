@@ -54,6 +54,11 @@
             text: "Is data loaded?",
           },
           {
+            opcode: "loadvars",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "Load progress",
+          },
+          {
             opcode: "setsavedvar",
             blockType: Scratch.BlockType.COMMAND,
             text: "Set saved variable [NAME] value [VALUE]",
@@ -83,16 +88,10 @@
               },
             },
           },
-          "---",
           {
             opcode: "savevars",
             blockType: Scratch.BlockType.COMMAND,
             text: "Save progress",
-          },
-          {
-            opcode: "loadvars",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Load progress",
           },
           {
             opcode: "resetprogress",
@@ -101,15 +100,15 @@
           },
           "---",
           {
-            opcode: "showfullscreen",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Show fullscreen ad",
-          },
-          {
             opcode: "whenFullscreenClosed",
             blockType: Scratch.BlockType.HAT,
             func: "isFullscreenClosed",
             text: "When fullscreen ad closed",
+          },
+          {
+            opcode: "showfullscreen",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "Show fullscreen ad",
           },
           {
             opcode: "fullscreenClosed",
@@ -118,15 +117,15 @@
           },
           "---",
           {
-            opcode: "showrewarded",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Show rewarded ad",
-          },
-          {
             opcode: "whenRewardedWatched",
             blockType: Scratch.BlockType.HAT,
             func: "isRewardedWatched",
             text: "When rewarded ad shown",
+          },
+          {
+            opcode: "showrewarded",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "Show rewarded ad",
           },
           {
             opcode: "rewardedRewarded",
