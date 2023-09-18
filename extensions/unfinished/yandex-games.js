@@ -196,7 +196,7 @@
       if (window.ysdk === undefined) {
         if (editor) {
           window.ysdk = {};
-          alert("This block will only work in a packaged project on YaGames site. Right now we will just pretend that you are connected.");
+          alert("This block will only work in a packaged project on YaGames site. Right now we will just pretend that you are connected.\n\n(This message will not appear when the project is packaged)");
         }
         loadSDK();
       }
