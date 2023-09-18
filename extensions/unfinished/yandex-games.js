@@ -23,7 +23,7 @@
     script.onload = initSDK;
   };
   const initSDK = () => {
-    YaGames.init().then(ysdk => {
+    YaGames.init().then((ysdk) => {
       window.ysdk = ysdk;
     });
   };
@@ -38,14 +38,14 @@
 
         blocks: [
           {
-            opcode: "sdkenabled",
+            opcode: "isSDK",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "Is SDK Enabled",
+            text: "connecting to yagames?",
           },
           {
-            opcode: "initsdk",
+            opcode: "trySDK",
             blockType: Scratch.BlockType.COMMAND,
-            text: "Initialize YaGames SDK",
+            text: "try connecting to yagames",
           },
           "---",
           {
@@ -189,6 +189,17 @@
       };
     }
 
+    isSDK() {
+      return window.ysdk !== undefined;
+    }
+    trySDK() {
+      if (window.ysdk === undefined) {
+        if (editor) {
+          window.ysdk = {};
+        }
+        loadSDK();
+      }
+    }
     getDeviceType() {
       if (window.ysdkdebug == true) {
         return "desktop";
@@ -267,59 +278,6 @@
     fullscreenClosed() {
       return window.isfullscreenclosed == true;
     }
-    initsdk() {
-      function onBlur() {
-        if (window.isAdOpened == false) {
-          Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
-        }
-      }
-      function onFocus() {
-        if (window.isAdOpened == false) {
-          Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
-        }
-      }
-      window.onfocus = onFocus;
-      window.onblur = onBlur;
-      window.isAdOpened = false;
-      document.addEventListener(
-        "visibilitychange",
-        function () {
-          if (window.isAdOpened == false) {
-            if (document.hidden) {
-              Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
-            } else {
-              Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
-            }
-          }
-        },
-        false,
-      );
-      window.savedData = "";
-      if (window.ysdkdebug == true) {
-        window.ysdk = {};
-        window.ysdkplayer = {};
-        return;
-      }
-      var script = document.createElement("script");
-      script.src = "https://yandex.ru/games/sdk/v2";
-      document.head.appendChild(script);
-      script.onload = async function () {
-        console.log(YaGames);
-        await YaGames.init().then((ysdk) => {
-          window.ysdk = ysdk;
-          ysdk.features.LoadingAPI.ready();
-          ysdk
-            .getPlayer({ scopes: false })
-            .then((_player) => {
-              var player = _player;
-              window.ysdkplayer = player;
-              console.log(window.ysdkplayer);
-            })
-            .catch((err) => {});
-        });
-        console.log("Initialized YaGames!");
-      };
-    }
     async loadvars() {
       if (window.ysdkdebug != true) {
         if (window.ysdkplayer != undefined) {
@@ -368,9 +326,6 @@
           window.savedData = JSON.stringify(window.ysdkdata);
           console.log("Successfully saved data!");
         });
-    }
-    sdkenabled() {
-      return window.ysdk != undefined;
     }
     debugenabled() {
       return window.ysdkdebug === true;
