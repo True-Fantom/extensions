@@ -16,6 +16,22 @@
   const vm = Scratch.vm;
   const cast = Scratch.Cast;
 
+  const sdk_only_message = [
+    "This block will only work in a packaged project on YaGames site. Right now we will just pretend that you are connected.",
+    "",
+    "(This message will not appear when the project is packaged)",
+  ].join("\n");
+  const fullscreen_ad_message = [
+    "Fullscreen ad.",
+    "",
+    "(This message will not appear when the project is packaged)",
+  ].join("\n");
+  const rewarded_ad_message = [
+    "Rewarded ad.",
+    "",
+    "(This message will not appear when the project is packaged)",
+  ].join("\n");
+
   const loadSDK = () => {
     const script = document.createElement("script");
     script.src = "https://yandex.ru/games/sdk/v2";
@@ -181,9 +197,7 @@
       if (window.ysdk === undefined) {
         if (editor) {
           window.ysdk = {};
-          alert(
-            "This block will only work in a packaged project on YaGames site. Right now we will just pretend that you are connected.\n\n(This message will not appear when the project is packaged)",
-          );
+          alert(message);
         }
         loadSDK();
       }
@@ -321,7 +335,7 @@
       window.isAdOpened = true;
       Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
       if (window.ysdkdebug == true) {
-        alert("Fullscreen ad!");
+        alert(fullscreen_ad_message);
         window.isfullscreenclosed = true;
         Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
         window.triggerIFC = true;
@@ -352,9 +366,7 @@
       window.isAdOpened = true;
       this.deafAE();
       if (window.ysdkdebug == true) {
-        var pr = prompt(
-          "DEBUG Rewarded Ad! Write C to close it, write R to get trigger reward.",
-        );
+        var pr = prompt(rewarded_ad_message);
         if (pr.toLowerCase() == "c") {
           window.isrewardedwatched = true;
           window.isrewarded = false;
