@@ -3,10 +3,6 @@
 // Description: Monetize your projects using the "Yandex Games" platform.
 // By: TrueFantom <https://scratch.mit.edu/users/TrueFantom/>
 
-/*
-  This is based on: https://github.com/timaaos/YandexGamesTurboWarp/
-*/
-
 (function (Scratch) {
   "use strict";
 
@@ -14,10 +10,25 @@
     throw new Error("YaGames Extension must be run Unsandboxed!");
   }
 
-  const icon_uri =
-    "data:image/svg+xml;base64,";
+  const icon_uri = "data:image/svg+xml;base64,";
 
-  class YaGames {
+  const editor = typeof ScratchBlocks !== "undefined";
+  const vm = Scratch.vm;
+  const cast = Scratch.Cast;
+
+  const loadSDK = () => {
+    const script = document.createElement("script");
+    script.src = "https://yandex.ru/games/sdk/v2";
+    document.head.appendChild(script);
+    script.onload = initSDK;
+  };
+  const initSDK = () => {
+    YaGames.init().then(ysdk => {
+      window.ysdk = ysdk;
+    });
+  };
+
+  class Extension {
     getInfo() {
       return {
         id: "truefantomyagames",
@@ -450,5 +461,5 @@
     }
   }
 
-  Scratch.extensions.register(new YaGames());
+  Scratch.extensions.register(new Extension());
 })(Scratch);
