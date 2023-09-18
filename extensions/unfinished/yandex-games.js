@@ -197,7 +197,7 @@
       if (window.ysdk === undefined) {
         if (editor) {
           window.ysdk = {};
-          alert(message);
+          alert(sdk_only_message);
         }
         loadSDK();
       }
