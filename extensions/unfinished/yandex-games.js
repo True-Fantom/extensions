@@ -49,22 +49,6 @@
           },
           "---",
           {
-            opcode: "debugenabled",
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: "Is debug mode Enabled",
-          },
-          {
-            opcode: "enabledebug",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Enable debug mode",
-          },
-          {
-            opcode: "disabledebug",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Disable debug mode",
-          },
-          "---",
-          {
             opcode: "dataloaded",
             blockType: Scratch.BlockType.BOOLEAN,
             text: "Is data loaded?",
@@ -290,14 +274,6 @@
         window.ysdkdata = {};
       }
     }
-    enabledebug() {
-      window.alreadyrated = false;
-      window.ysdkdebug = true;
-    }
-    disabledebug() {
-      window.alreadyrated = false;
-      window.ysdkdebug = false;
-    }
     setsavedvar(args) {
       window.ysdkdata[args.NAME] = args.VALUE;
       return;
@@ -327,9 +303,6 @@
           window.savedData = JSON.stringify(window.ysdkdata);
           console.log("Successfully saved data!");
         });
-    }
-    debugenabled() {
-      return window.ysdkdebug === true;
     }
     dataloaded() {
       return window.ysdkplayer != undefined && window.ysdkdata != undefined;
