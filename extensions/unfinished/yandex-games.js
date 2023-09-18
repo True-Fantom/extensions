@@ -59,6 +59,17 @@
             text: "Load progress",
           },
           {
+            opcode: "savevars",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "Save progress",
+          },
+          {
+            opcode: "resetprogress",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "Reset progress",
+          },
+          "---",
+          {
             opcode: "setsavedvar",
             blockType: Scratch.BlockType.COMMAND,
             text: "Set saved variable [NAME] value [VALUE]",
@@ -88,16 +99,6 @@
               },
             },
           },
-          {
-            opcode: "savevars",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Save progress",
-          },
-          {
-            opcode: "resetprogress",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Reset progress",
-          },
           "---",
           {
             opcode: "whenFullscreenClosed",
@@ -106,14 +107,14 @@
             text: "When fullscreen ad closed",
           },
           {
-            opcode: "showfullscreen",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Show fullscreen ad",
-          },
-          {
             opcode: "fullscreenClosed",
             blockType: Scratch.BlockType.BOOLEAN,
             text: "Is fullscreen ad closed?",
+          },
+          {
+            opcode: "showfullscreen",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "Show fullscreen ad",
           },
           "---",
           {
@@ -123,14 +124,14 @@
             text: "When rewarded ad shown",
           },
           {
-            opcode: "showrewarded",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Show rewarded ad",
-          },
-          {
             opcode: "rewardedRewarded",
             blockType: Scratch.BlockType.BOOLEAN,
             text: "Did Rewarded Ad give reward?",
+          },
+          {
+            opcode: "showrewarded",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "Show rewarded ad",
           },
           "---",
           {
@@ -180,7 +181,9 @@
       if (window.ysdk === undefined) {
         if (editor) {
           window.ysdk = {};
-          alert("This block will only work in a packaged project on YaGames site. Right now we will just pretend that you are connected.\n\n(This message will not appear when the project is packaged)");
+          alert(
+            "This block will only work in a packaged project on YaGames site. Right now we will just pretend that you are connected.\n\n(This message will not appear when the project is packaged)",
+          );
         }
         loadSDK();
       }
