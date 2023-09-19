@@ -174,26 +174,28 @@
             text: "Device Type",
           },
           {
-            opcode: "isDesktop",
+            opcode: "isDeviceType",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "Is playing on Desktop?",
-          },
-          {
-            opcode: "isMobile",
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: "Is playing on Mobile?",
-          },
-          {
-            opcode: "isTablet",
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: "Is playing on Tablet?",
-          },
-          {
-            opcode: "isTV",
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: "Is playing on TV?",
+            text: "Is playing on [DEVICE] ?",
+            arguments: {
+              DEVICE: {
+                type: Scratch.ArgumentType.STRING,
+                menu: "DEVICE_TYPE",
+              },
+            },
           },
         ],
+        menus: {
+          DEVICE_TYPE: {
+            acceptReporters: false,
+            items: [
+              "desktop",
+              "mobile",
+              "tablet",
+              "tv",
+            ],
+          },
+        },
       };
     }
 
@@ -212,33 +214,23 @@
       }
     }
     getDeviceType() {
-      if (editor) {
+      if (isEditor()) {
         return "desktop";
-      } else if (window.ysdk !== undefined) return ysdk.deviceInfo.type;
-    }
-    isDesktop() {
-      if (window.ysdkdebug == true) {
-        return true;
       }
-      return ysdk.deviceInfo.isDesktop();
-    }
-    isMobile() {
-      if (window.ysdkdebug == true) {
-        return false;
+      else if (isSDK()) {
+        return ysdk.deviceInfo.type;
       }
-      return ysdk.deviceInfo.isMobile();
+      return "";
     }
-    isTablet() {
-      if (window.ysdkdebug == true) {
-        return false;
+    isDeviceType(args) {
+      const device = cast.toString(args.DEVICE).toLowerCase();
+      if (isEditor()) {
+        return device === "desktop";
       }
-      return ysdk.deviceInfo.isTablet();
-    }
-    isTV() {
-      if (window.ysdkdebug == true) {
-        return false;
+      else if (isSDK()) {
+        return device === ysdk.deviceInfo.type;
       }
-      return ysdk.deviceInfo.isTV();
+      return false;
     }
     canRateGame() {
       if (window.ysdkdebug == true) {
