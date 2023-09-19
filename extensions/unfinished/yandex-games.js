@@ -17,21 +17,12 @@
   const vm = Scratch.vm;
   const cast = Scratch.Cast;
 
-  const sdk_only_message = [
-    "This block will only work in a packaged project on YaGames site. Right now we will just pretend that you are connected.",
-    "",
-    "(This message will not appear when the project is packaged)",
-  ].join("\n");
-  const fullscreen_ad_message = [
-    "Fullscreen ad.",
-    "",
-    "(This message will not appear when the project is packaged)",
-  ].join("\n");
-  const rewarded_ad_message = [
-    "Rewarded ad.",
-    "",
-    "(This message will not appear when the project is packaged)",
-  ].join("\n");
+  const default_message = "This block will only work in a packaged project on YaGames site. Right now we will just pretend that you are connected."
+  const rate_game_message = "Rate our game.";
+  const fullscreen_ad_message = "Fullscreen ad."
+  const rewarded_ad_message = "Rewarded ad.";
+
+  const additional_message = "(This message will not appear when the project is packaged)"
 
   const loadSDK = () => {
     const script = document.createElement("script");
@@ -199,7 +190,7 @@
       if (window.ysdk === undefined) {
         if (editor) {
           window.ysdk = {};
-          alert(sdk_only_message);
+          alert(default_message + "\n\n" + additional_message);
         } else {
           loadSDK();
         }
@@ -248,7 +239,7 @@
     openRatePopup() {
       if (window.ysdkdebug == true) {
         window.alreadyrated = true;
-        alert("DEBUG Rate our game");
+        alert(rate_game_message + "\n\n" + additional_message);
         return;
       }
       ysdk.feedback.requestReview();
@@ -338,7 +329,7 @@
       window.isAdOpened = true;
       Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
       if (window.ysdkdebug == true) {
-        alert(fullscreen_ad_message);
+        alert(fullscreen_ad_message + "\n\n" + additional_message);
         window.isfullscreenclosed = true;
         Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
         window.triggerIFC = true;
@@ -369,17 +360,16 @@
       window.isAdOpened = true;
       this.deafAE();
       if (window.ysdkdebug == true) {
-        var pr = prompt(rewarded_ad_message);
-        if (pr.toLowerCase() == "c") {
-          window.isrewardedwatched = true;
-          window.isrewarded = false;
-        } else if (pr.toLowerCase() == "r") {
+        var pr = confirm(rewarded_ad_message + "\n\n" + additional_message);
+        if (pr) {
           window.isrewardedwatched = true;
           window.isrewarded = true;
+        } else {
+          window.isrewardedwatched = true;
+          window.isrewarded = false;
         }
         window.isAdOpened = false;
         this.triggerIRW();
-        return;
       }
       window.ysdk.adv.showRewardedVideo({
         callbacks: {
