@@ -31,6 +31,11 @@
   const vm = Scratch.vm;
   const cast = Scratch.Cast;
 
+  const makeLabel = (text) => ({
+    blockType: 'label',
+    text: text
+  });
+
   const isEditor = () => typeof ScratchBlocks !== "undefined";
   const isSDK = () => typeof window.ysdk !== "undefined";
 
@@ -70,28 +75,7 @@
             blockType: Scratch.BlockType.COMMAND,
             text: "try connecting to YaGames",
           },
-          "---",
-          {
-            opcode: "dataloaded",
-            blockType: Scratch.BlockType.BOOLEAN,
-            text: "Is data loaded?",
-          },
-          {
-            opcode: "loadvars",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Load progress",
-          },
-          {
-            opcode: "savevars",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Save progress",
-          },
-          {
-            opcode: "resetprogress",
-            blockType: Scratch.BlockType.COMMAND,
-            text: "Reset progress",
-          },
-          "---",
+          makeLabel("Сloud Variables"),
           {
             opcode: "setsavedvar",
             blockType: Scratch.BlockType.COMMAND,
@@ -123,6 +107,27 @@
             },
           },
           "---",
+          {
+            opcode: "dataloaded",
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: "Is data loaded?",
+          },
+          {
+            opcode: "loadvars",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "Load progress",
+          },
+          {
+            opcode: "savevars",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "Save progress",
+          },
+          {
+            opcode: "resetprogress",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "Reset progress",
+          },
+          makeLabel("Advertisements"),
           {
             opcode: "whenFullscreenClosed",
             blockType: Scratch.BlockType.HAT,
@@ -167,7 +172,7 @@
             blockType: Scratch.BlockType.COMMAND,
             text: "Open Rating Popup",
           },
-          "---",
+          makeLabel("Device Info"),
           {
             opcode: "getDeviceType",
             blockType: Scratch.BlockType.REPORTER,
@@ -214,7 +219,7 @@
       }
     }
     getDeviceType() {
-      if (isEditor()) {
+      if (isEditor() && editor_is_sdk) {
         return "desktop";
       }
       else if (isSDK()) {
@@ -224,7 +229,7 @@
     }
     isDeviceType(args) {
       const device = cast.toString(args.DEVICE).toLowerCase();
-      if (isEditor()) {
+      if (isEditor() && editor_is_sdk) {
         return device === "desktop";
       }
       else if (isSDK()) {
