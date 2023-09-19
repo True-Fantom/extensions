@@ -63,12 +63,12 @@
           {
             opcode: "isSDK",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "connecting to yagames?",
+            text: "connecting to YaGames?",
           },
           {
             opcode: "trySDK",
             blockType: Scratch.BlockType.COMMAND,
-            text: "try connecting to yagames",
+            text: "try connecting to YaGames",
           },
           "---",
           {
