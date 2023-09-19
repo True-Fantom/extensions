@@ -171,12 +171,12 @@
           {
             opcode: "getDeviceType",
             blockType: Scratch.BlockType.REPORTER,
-            text: "Device Type",
+            text: "device type",
           },
           {
             opcode: "isDeviceType",
             blockType: Scratch.BlockType.BOOLEAN,
-            text: "Is playing on [DEVICE] ?",
+            text: "is playing on [DEVICE] ?",
             arguments: {
               DEVICE: {
                 type: Scratch.ArgumentType.STRING,
