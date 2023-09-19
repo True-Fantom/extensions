@@ -163,6 +163,12 @@
           },
           "---",
           {
+            opcode: "whenRateGame",
+            blockType: Scratch.BlockType.HAT,
+            func: "isRateGame",
+            text: "When rete game",
+          },
+          {
             opcode: "canRateGame",
             blockType: Scratch.BlockType.BOOLEAN,
             text: "Can rate game?",
