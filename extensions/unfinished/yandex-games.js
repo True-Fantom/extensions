@@ -75,7 +75,7 @@
             blockType: Scratch.BlockType.COMMAND,
             text: "try connecting to YaGames",
           },
-          makeLabel("Сloud Variables"),
+          makeLabel("Сloud variables"),
           {
             opcode: "setsavedvar",
             blockType: Scratch.BlockType.COMMAND,
@@ -178,7 +178,7 @@
             blockType: Scratch.BlockType.COMMAND,
             text: "Open Rating Popup",
           },
-          makeLabel("Device Info"),
+          makeLabel("Device info"),
           {
             opcode: "getDeviceType",
             blockType: Scratch.BlockType.REPORTER,
