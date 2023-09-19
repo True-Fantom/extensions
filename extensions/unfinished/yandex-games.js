@@ -1,6 +1,6 @@
 // Name: YaGames
 // ID: truefantomyagames
-// Description: Monetize your projects using the "Yandex Games" platform.
+// Description: Blocks that allow games to interact with the YaGames SDK. Unofficial.
 // By: TrueFantom <https://scratch.mit.edu/users/TrueFantom/>
 
 (function (Scratch) {
