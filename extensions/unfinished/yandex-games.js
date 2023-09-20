@@ -36,7 +36,7 @@
     text: text,
   });
 
-  const isEditor = () => typeof ScratchBlocks !== "undefined";
+  const isEditor = () => typeof window.ScratchBlocks !== "undefined";
   const isSDK = () => typeof window.ysdk !== "undefined";
 
   const variables = [];
