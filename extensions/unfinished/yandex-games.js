@@ -32,8 +32,8 @@
   const cast = Scratch.Cast;
 
   const makeLabel = (text) => ({
-    blockType: 'label',
-    text: text
+    blockType: "label",
+    text: text,
   });
 
   const isEditor = () => typeof ScratchBlocks !== "undefined";
@@ -199,12 +199,7 @@
         menus: {
           DEVICE_TYPE: {
             acceptReporters: false,
-            items: [
-              "desktop",
-              "mobile",
-              "tablet",
-              "tv",
-            ],
+            items: ["desktop", "mobile", "tablet", "tv"],
           },
         },
       };
@@ -224,72 +219,16 @@
         loadSDK();
       }
     }
-    getDeviceType() {
-      if (isEditor() && editor_is_sdk) {
-        return "desktop";
-      }
-      else if (isSDK()) {
-        return ysdk.deviceInfo.type;
-      }
-      return "";
+
+    setsavedvar(args) {
+      window.ysdkdata[args.NAME] = args.VALUE;
+      return;
     }
-    isDeviceType(args) {
-      const device = cast.toString(args.DEVICE).toLowerCase();
-      if (isEditor() && editor_is_sdk) {
-        return device === "desktop";
-      }
-      else if (isSDK()) {
-        return device === ysdk.deviceInfo.type;
-      }
-      return false;
+    getsavedvar(args) {
+      return window.ysdkdata[args.NAME] || args.DEFVAL;
     }
-    canRateGame() {
-      if (window.ysdkdebug == true) {
-        return !(window.alreadyrated == true);
-      }
-      var can;
-      ysdk.feedback.canReview().then(({ value, reason }) => {
-        can = value;
-      });
-      return can;
-    }
-    openRatePopup() {
-      if (window.ysdkdebug == true) {
-        window.alreadyrated = true;
-        alert(messages.rate_game + "\n\n" + message_ending);
-        return;
-      }
-      ysdk.feedback.requestReview();
-    }
-    whenRewardedWatched() {
-      console.log("wathced!");
-    }
-    rewardedRewarded() {
-      return window.isrewarded == true;
-    }
-    triggerIRW() {
-      window.triggerIRW = true;
-    }
-    triggerIFC() {
-      this.undeafAE();
-      window.triggerIFC = true;
-    }
-    isRewardedWatched() {
-      if (window.triggerIRW) {
-        window.triggerIRW = false;
-        return true;
-      }
-      return false;
-    }
-    isFullscreenClosed() {
-      if (window.triggerIFC) {
-        window.triggerIFC = false;
-        return true;
-      }
-      return false;
-    }
-    fullscreenClosed() {
-      return window.isfullscreenclosed == true;
+    dataloaded() {
+      return window.ysdkplayer != undefined && window.ysdkdata != undefined;
     }
     async loadvars() {
       if (window.ysdkdebug != true) {
@@ -301,13 +240,6 @@
       } else {
         window.ysdkdata = {};
       }
-    }
-    setsavedvar(args) {
-      window.ysdkdata[args.NAME] = args.VALUE;
-      return;
-    }
-    getsavedvar(args) {
-      return window.ysdkdata[args.NAME] || args.DEFVAL;
     }
     savevars() {
       if (
@@ -332,14 +264,9 @@
           console.log("Successfully saved data!");
         });
     }
-    dataloaded() {
-      return window.ysdkplayer != undefined && window.ysdkdata != undefined;
-    }
-    deafAE() {
-      Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
-    }
-    undeafAE() {
-      Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
+
+    fullscreenClosed() {
+      return window.isfullscreenclosed == true;
     }
     showfullscreen() {
       window.isfullscreenclosed = false;
@@ -370,6 +297,10 @@
           },
         });
       }
+    }
+
+    rewardedRewarded() {
+      return window.isrewarded == true;
     }
     showrewarded() {
       window.isrewardedwatched = false;
@@ -412,6 +343,43 @@
           },
         },
       });
+    }
+
+    canRateGame() {
+      if (window.ysdkdebug == true) {
+        return !(window.alreadyrated == true);
+      }
+      var can;
+      ysdk.feedback.canReview().then(({ value, reason }) => {
+        can = value;
+      });
+      return can;
+    }
+    openRatePopup() {
+      if (window.ysdkdebug == true) {
+        window.alreadyrated = true;
+        alert(messages.rate_game + "\n\n" + message_ending);
+        return;
+      }
+      ysdk.feedback.requestReview();
+    }
+
+    getDeviceType() {
+      if (isEditor() && editor_is_sdk) {
+        return "desktop";
+      } else if (isSDK()) {
+        return ysdk.deviceInfo.type;
+      }
+      return "";
+    }
+    isDeviceType(args) {
+      const device = cast.toString(args.DEVICE).toLowerCase();
+      if (isEditor() && editor_is_sdk) {
+        return device === "desktop";
+      } else if (isSDK()) {
+        return device === ysdk.deviceInfo.type;
+      }
+      return false;
     }
   }
 
