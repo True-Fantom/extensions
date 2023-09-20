@@ -100,7 +100,7 @@
 
     createVariable() {
       const name = prompt("New variable name:", "");
-      if (!Object.keys(variables).includes(name) && name !== "") {
+      if (!Object.keys(variables).includes(name) && name !== "" && name !== null) {
         variables[name] = 0;
         Extension.prototype["getVariable_" + name] = (args, util, info) => {
           return variables[info.text];
@@ -110,7 +110,7 @@
     }
     deleteVariable() {
       const name = prompt("Deleted variable name:", "");
-      if (Object.keys(variables).includes(name) && name !== "") {
+      if (Object.keys(variables).includes(name) && name !== "" && name !== null) {
         delete variables[name];
         delete Extension.prototype["getVariable_" + name];
         vm.extensionManager.refreshBlocks();
