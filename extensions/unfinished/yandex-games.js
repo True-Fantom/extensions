@@ -39,6 +39,8 @@
   const isEditor = () => typeof ScratchBlocks !== "undefined";
   const isSDK = () => typeof window.ysdk !== "undefined";
 
+  const variables = [];
+
   let editor_is_sdk = false;
   let editor_can_review = true;
   let editor_device_type = "";
@@ -75,37 +77,49 @@
             blockType: Scratch.BlockType.COMMAND,
             text: "try connecting to YaGames",
           },
-          makeLabel("Сloud variables"),
+          makeLabel("YaGames variables"),
           {
-            opcode: "setsavedvar",
+            opcode: "setVar",
             blockType: Scratch.BlockType.COMMAND,
-            text: "Set saved variable [NAME] value [VALUE]",
+            text: "set YaGames [NAME] to [VALUE]",
             arguments: {
               NAME: {
-                defaultValue: "money",
                 type: Scratch.ArgumentType.STRING,
+                menu: "VARS",
               },
               VALUE: {
-                defaultValue: "100",
                 type: Scratch.ArgumentType.STRING,
+                defaultValue: "0",
               },
             },
           },
           {
-            opcode: "getsavedvar",
-            blockType: Scratch.BlockType.REPORTER,
-            text: "Get saved variable [NAME] default value [DEFVAL]",
+            opcode: "changeVar",
+            blockType: Scratch.BlockType.COMMAND,
+            text: "change YaGames [NAME] by [VALUE]",
             arguments: {
               NAME: {
-                defaultValue: "money",
                 type: Scratch.ArgumentType.STRING,
+                menu: "VARS",
               },
-              DEFVAL: {
-                defaultValue: "100",
+              VALUE: {
                 type: Scratch.ArgumentType.STRING,
+                defaultValue: "1",
               },
             },
           },
+          {
+            opcode: "getVar",
+            blockType: Scratch.BlockType.REPORTER,
+            text: "YaGames [NAME]",
+            arguments: {
+              NAME: {
+                type: Scratch.ArgumentType.STRING,
+                menu: "VARS",
+              },
+            },
+          },
+          
           "---",
           {
             opcode: "dataloaded",
@@ -197,6 +211,10 @@
           },
         ],
         menus: {
+          VARS: {
+            acceptReporters: false,
+            items: variables,
+          },
           DEVICE_TYPE: {
             acceptReporters: false,
             items: ["desktop", "mobile", "tablet", "tv"],
@@ -220,13 +238,13 @@
       }
     }
 
-    setsavedvar(args) {
+    setVar(args) {
       window.ysdkdata[args.NAME] = args.VALUE;
-      return;
     }
-    getsavedvar(args) {
-      return window.ysdkdata[args.NAME] || args.DEFVAL;
+    getVar(args) {
+      return window.ysdkdata[args.NAME];
     }
+
     dataloaded() {
       return window.ysdkplayer != undefined && window.ysdkdata != undefined;
     }
