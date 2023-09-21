@@ -11,16 +11,13 @@
   const variables = {};
 
   const getVariableBlocks = () => {
-    const createVariableBlock = (text) => {
+    return Object.keys(variables).map((variable) => {
       return {
         opcode: "getVariable_" + text,
         blockType: Scratch.BlockType.REPORTER,
         text: text,
-      };
-    };
-    return Object.keys(variables).map((variable) =>
-      createVariableBlock(variable),
-    );
+      }; 
+    });
   };
 
   class Extension {
