@@ -115,8 +115,8 @@
     }
   }
 
-  for (let i = 0; i < Object.keys(variables).length; i++) {
-    Extension.prototype["getVariable_" + Object.keys(variables)[i]] = (
+  for (const variable in variables) {
+    Extension.prototype["getVariable_" + variable] = (
       args,
       util,
       info,
