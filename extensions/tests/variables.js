@@ -8,7 +8,7 @@
   const vm = Scratch.vm;
   const cast = Scratch.Cast;
 
-  const variables = {};
+  const variables = {"my variable": 0};
 
   const getVariableBlocks = () => {
     return Object.keys(variables).map((variable) => {
