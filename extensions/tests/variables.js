@@ -13,9 +13,9 @@
   const getVariableBlocks = () => {
     return Object.keys(variables).map((variable) => {
       return {
-        opcode: "getVariable_" + text,
+        opcode: "getVariable_" + variable,
         blockType: Scratch.BlockType.REPORTER,
-        text: text,
+        text: variable,
       }; 
     });
   };
