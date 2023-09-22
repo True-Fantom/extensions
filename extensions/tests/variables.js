@@ -100,9 +100,14 @@
         cast.toNumber(variables[args.NAME]) + cast.toNumber(args.VALUE);
     }
 
-    createVariable() {
+    createVariable(args, util) {
       const name = prompt("New variable name:", "");
+      const local = confirm("For this sprite only");
       if (!Object.keys(variables).includes(name) && name !== "" && name !== null) {
+        if (local) {
+          const target = util.target;
+          console.log(target);
+        }
         variables[name] = 0;
         Extension.prototype["getVariable_" + name] = (args, util, info) => {
           return variables[info.text];
