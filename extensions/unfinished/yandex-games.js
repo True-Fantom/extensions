@@ -31,11 +31,6 @@
   const vm = Scratch.vm;
   const cast = Scratch.Cast;
 
-  const makeLabel = (text) => ({
-    blockType: "label",
-    text: text,
-  });
-
   const isEditor = () => typeof window.ScratchBlocks !== "undefined";
   const isSDK = () => typeof window.ysdk !== "undefined";
 
@@ -77,7 +72,10 @@
             blockType: Scratch.BlockType.COMMAND,
             text: "try connecting to YaGames",
           },
-          makeLabel("YaGames variables"),
+          {
+            blockType: Scratch.BlockType.LABEL,
+            text: "YaGames variables",
+          },
           {
             opcode: "setVar",
             blockType: Scratch.BlockType.COMMAND,
@@ -119,7 +117,6 @@
               },
             },
           },
-          
           "---",
           {
             opcode: "dataloaded",
@@ -141,7 +138,10 @@
             blockType: Scratch.BlockType.COMMAND,
             text: "Reset progress",
           },
-          makeLabel("Advertisements"),
+          {
+            blockType: Scratch.BlockType.LABEL,
+            text: "Advertisements",
+          },
           {
             opcode: "whenFullscreenClosed",
             blockType: Scratch.BlockType.HAT,
@@ -192,7 +192,10 @@
             blockType: Scratch.BlockType.COMMAND,
             text: "Open Rating Popup",
           },
-          makeLabel("Device info"),
+          {
+            blockType: Scratch.BlockType.LABEL,
+            text: "Device info",
+          },
           {
             opcode: "getDeviceType",
             blockType: Scratch.BlockType.REPORTER,
