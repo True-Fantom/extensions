@@ -76,6 +76,11 @@
             text: "For all sprites:",
           },
           ...getVariableBlocks(),
+          {
+            hideFromPalette: Object.keys(variables).length <= 0,
+            blockType: Scratch.BlockType.LABEL,
+            text: "For this sprite only:",
+          },
         ],
         menus: {
           VARIABLES: {
