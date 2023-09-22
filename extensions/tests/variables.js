@@ -8,16 +8,28 @@
   const vm = Scratch.vm;
   const cast = Scratch.Cast;
 
-  const variables = {"my variable": 0};
+  const variables = {global: {"my variable": 0}, local: {}};
 
-  const getVariableBlocks = () => {
-    return Object.keys(variables).map((variable) => {
-      return {
-        opcode: "getVariable_" + variable,
-        blockType: Scratch.BlockType.REPORTER,
-        text: variable,
-      }; 
-    });
+  const getVariableBlocks = (type) => {
+    if (type = "global") {
+      return Object.keys(variables.global).map((variable) => {
+        return {
+          opcode: "global_getVariable_" + variable,
+          blockType: Scratch.BlockType.REPORTER,
+          text: variable,
+        }; 
+      });
+    }
+    else if (type = "local") {
+      return Object.keys(variables.local).map((sprite) => {
+        return {
+          filter: [sprite],
+          opcode: sprite + "_getVariable_" + sprite.variable,
+          blockType: Scratch.BlockType.REPORTER,
+          text: sprite.variable,
+        }; 
+      });
+    }
   };
 
   class Extension {
@@ -109,7 +121,7 @@
           console.log(target);
         }
         variables[name] = 0;
-        Extension.prototype["getVariable_" + name] = (args, util, info) => {
+        Extension.prototype["global_getVariable_" + name] = (args, util, info) => {
           return variables[info.text];
         };
         vm.extensionManager.refreshBlocks();
@@ -119,14 +131,14 @@
       const name = prompt("Deleted variable name:", "");
       if (Object.keys(variables).includes(name) && name !== "" && name !== null) {
         delete variables[name];
-        delete Extension.prototype["getVariable_" + name];
+        delete Extension.prototype["global_getVariable_" + name];
         vm.extensionManager.refreshBlocks();
       }
     }
   }
 
   for (const variable in variables) {
-    Extension.prototype["getVariable_" + variable] = (
+    Extension.prototype["global_getVariable_" + variable] = (
       args,
       util,
       info,
