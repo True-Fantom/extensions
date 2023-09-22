@@ -100,12 +100,12 @@
         cast.toNumber(variables[args.NAME]) + cast.toNumber(args.VALUE);
     }
 
-    createVariable(args, util) {
+    createVariable() {
       const name = prompt("New variable name:", "");
       const local = confirm("For this sprite only");
       if (!Object.keys(variables).includes(name) && name !== "" && name !== null) {
         if (local) {
-          const target = util.target;
+          const target = vm.runtime._editingTarget;
           console.log(target);
         }
         variables[name] = 0;
