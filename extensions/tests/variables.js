@@ -11,13 +11,15 @@
   const variables = { "my variable": 0 };
 
   const getVariableBlocks = () => {
-    return Object.keys(variables).map((variable) => {
-      return {
-        opcode: "getVariable_" + variable,
-        blockType: Scratch.BlockType.REPORTER,
-        text: variable,
-      };
-    });
+    return Object.keys(variables)
+      .sort()
+      .map((variable) => {
+        return {
+          opcode: "getVariable_" + variable,
+          blockType: Scratch.BlockType.REPORTER,
+          text: variable,
+        };
+      });
   };
 
   class Extension {
@@ -122,7 +124,7 @@
     }
 
     _getAllVariables() {
-      return Object.keys(variables);
+      return Object.keys(variables).sort();
     }
   }
 
