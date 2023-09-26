@@ -34,7 +34,22 @@
   const isEditor = () => typeof window.ScratchBlocks !== "undefined";
   const isSDK = () => typeof window.ysdk !== "undefined";
 
-  const variables = [];
+  const variables = {};
+
+  const getVariableBlocks = () => {
+    return Object.keys(variables).map((variable) => {
+      return {
+        opcode: "getVariable_" + variable,
+        blockType: Scratch.BlockType.REPORTER,
+        text: "\u2601 " + variable,
+      };
+    });
+  };
+  const getVariableSeparator = () => {
+    if (Object.keys(variables).length > 0) {
+      return "---";
+    }
+  };
 
   let editor_is_sdk = false;
   let editor_can_review = true;
@@ -77,13 +92,14 @@
             text: "YaGames variables",
           },
           {
-            opcode: "setVar",
+            hideFromPalette: Object.keys(variables).length <= 0,
+            opcode: "setVariable",
             blockType: Scratch.BlockType.COMMAND,
             text: "set YaGames [NAME] to [VALUE]",
             arguments: {
               NAME: {
                 type: Scratch.ArgumentType.STRING,
-                menu: "VARS",
+                menu: "VARIABLES",
               },
               VALUE: {
                 type: Scratch.ArgumentType.STRING,
@@ -92,52 +108,63 @@
             },
           },
           {
-            opcode: "changeVar",
+            hideFromPalette: Object.keys(variables).length <= 0,
+            opcode: "changeVariable",
             blockType: Scratch.BlockType.COMMAND,
             text: "change YaGames [NAME] by [VALUE]",
             arguments: {
               NAME: {
                 type: Scratch.ArgumentType.STRING,
-                menu: "VARS",
+                menu: "VARIABLES",
               },
               VALUE: {
-                type: Scratch.ArgumentType.STRING,
-                defaultValue: "1",
+                type: Scratch.ArgumentType.NUMBER,
+                defaultValue: 1,
               },
             },
           },
+          getVariableSeparator(),
           {
-            opcode: "getVar",
-            blockType: Scratch.BlockType.REPORTER,
-            text: "YaGames [NAME]",
-            arguments: {
-              NAME: {
-                type: Scratch.ArgumentType.STRING,
-                menu: "VARS",
-              },
-            },
-          },
-          "---",
-          {
+            hideFromPalette: Object.keys(variables).length <= 0,
             opcode: "dataloaded",
             blockType: Scratch.BlockType.BOOLEAN,
             text: "Is data loaded?",
           },
           {
+            hideFromPalette: Object.keys(variables).length <= 0,
             opcode: "loadvars",
             blockType: Scratch.BlockType.COMMAND,
             text: "Load progress",
           },
           {
+            hideFromPalette: Object.keys(variables).length <= 0,
             opcode: "savevars",
             blockType: Scratch.BlockType.COMMAND,
             text: "Save progress",
           },
           {
+            hideFromPalette: Object.keys(variables).length <= 0,
             opcode: "resetprogress",
             blockType: Scratch.BlockType.COMMAND,
             text: "Reset progress",
           },
+          {
+            func: "createVariable",
+            blockType: Scratch.BlockType.BUTTON,
+            text: "Make a YaGames Variable",
+          },
+          {
+            hideFromPalette: Object.keys(variables).length <= 0,
+            func: "deleteVariable",
+            blockType: Scratch.BlockType.BUTTON,
+            text: "Delete a YaGames Variable",
+          },
+          {
+            hideFromPalette: Object.keys(variables).length <= 0,
+            blockType: Scratch.BlockType.LABEL,
+            text: "For all sprites:",
+          },
+          ...getVariableBlocks(),
           {
             blockType: Scratch.BlockType.LABEL,
             text: "Advertisements",
@@ -214,9 +241,9 @@
           },
         ],
         menus: {
-          VARS: {
+          VARIABLES: {
             acceptReporters: false,
-            items: variables,
+            items: Object.keys(variables),
           },
           DEVICE_TYPE: {
             acceptReporters: false,
@@ -241,11 +268,38 @@
       }
     }
 
-    setVar(args) {
-      window.ysdkdata[args.NAME] = args.VALUE;
+    setVariable(args) {
+      variables[args.NAME] = args.VALUE;
     }
-    getVar(args) {
-      return window.ysdkdata[args.NAME];
+    changeVariable(args) {
+      variables[args.NAME] =
+        cast.toNumber(variables[args.NAME]) + cast.toNumber(args.VALUE);
+    }
+    createVariable() {
+      const name = prompt("New variable name:", "");
+      if (
+        !Object.keys(variables).includes(name) &&
+        name !== "" &&
+        name !== null
+      ) {
+        variables[name] = 0;
+        Extension.prototype["getVariable_" + name] = (args, util, info) => {
+          return variables[info.text.slice(2)];
+        };
+        vm.extensionManager.refreshBlocks();
+      }
+    }
+    deleteVariable() {
+      const name = prompt("Deleted variable name:", "");
+      if (
+        Object.keys(variables).includes(name) &&
+        name !== "" &&
+        name !== null
+      ) {
+        delete variables[name];
+        delete Extension.prototype["getVariable_" + name];
+        vm.extensionManager.refreshBlocks();
+      }
     }
 
     dataloaded() {
@@ -402,6 +456,12 @@
       }
       return false;
     }
+  }
+
+  for (const variable in variables) {
+    Extension.prototype["getVariable_" + variable] = (args, util, info) => {
+      return variables[info.text.slice(2)];
+    };
   }
 
   Scratch.extensions.register(new Extension());
