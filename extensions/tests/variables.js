@@ -117,7 +117,30 @@
         name !== "" &&
         name !== null
       ) {
-        if (false) {
+        let cant_delete = false;
+        const targets = vm.runtime.targets;
+        for (const target_index in targets) {
+          const target = targets[target_index];
+          const blocks = target.blocks._blocks;
+          for (const block_index in blocks) {
+            const block = blocks[block_index];
+            if (
+              block.opcode === "truefantomvariables_setVariable" ||
+              block.opcode === "truefantomvariables_changeVariable"
+            ) {
+              if (block.fields.NAME.value === name) {
+                cant_delete = true;
+              }
+            } else if (
+              block.opcode.slice(0, 32) === "truefantomvariables_getVariable_"
+            ) {
+              if (block.opcode.slice(32) === name) {
+                cant_delete = true;
+              }
+            }
+          }
+        }
+        if (cant_delete) {
           alert("То delete а variable, first remove all uses of it");
           return;
         }
