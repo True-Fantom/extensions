@@ -80,7 +80,7 @@
         menus: {
           VARIABLES: {
             acceptReporters: false,
-            items: Object.keys(variables),
+            items: "_getAllVariables",
           },
         },
       };
@@ -119,6 +119,10 @@
         delete Extension.prototype["getVariable_" + name];
         vm.extensionManager.refreshBlocks();
       }
+    }
+
+    _getAllVariables() {
+      return Object.keys(variables);
     }
   }
 
