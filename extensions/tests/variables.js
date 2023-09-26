@@ -89,11 +89,15 @@
     }
 
     setVariable(args) {
-      variables[args.NAME] = args.VALUE;
+      if (Object.keys(variables).includes(cast.toString(args.NAME))) {
+        variables[args.NAME] = args.VALUE;
+      }
     }
     changeVariable(args) {
-      variables[args.NAME] =
-        cast.toNumber(variables[args.NAME]) + cast.toNumber(args.VALUE);
+      if (Object.keys(variables).includes(cast.toString(args.NAME))) {
+        variables[args.NAME] =
+          cast.toNumber(variables[args.NAME]) + cast.toNumber(args.VALUE);
+      }
     }
 
     createVariable() {
