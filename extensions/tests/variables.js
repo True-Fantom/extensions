@@ -117,6 +117,10 @@
         name !== "" &&
         name !== null
       ) {
+        if (false) {
+          alert("То delete а variable, first remove all uses of it");
+          return;
+        }
         delete variables[name];
         delete Extension.prototype["getVariable_" + name];
         vm.extensionManager.refreshBlocks();
