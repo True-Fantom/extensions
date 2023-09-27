@@ -8,16 +8,22 @@
   const vm = Scratch.vm;
   const cast = Scratch.Cast;
 
-  const variables = { "my variable": 0 };
+  const getStageId = () => vm.runtime._stageTarget.id;
+  const getSpriteId = () => vm.runtime._editingTarget.id;
 
-  const getVariableBlocks = () => {
-    return Object.keys(variables)
+  const variables = {};
+  variables[getStageId()] = { "my variable": 0 };
+
+  const getVariableBlocks = (target_id) => {
+    return Object.keys(variables[target_id] || {})
       .sort()
       .map((variable) => {
         return {
-          opcode: "getVariable_" + variable,
+          hideFromPalette: target_id === getStageId() ? false : () => target_id === getStageId(),
+          opcode: "getVariable_" + target_id + "_" + variable,
           blockType: Scratch.BlockType.REPORTER,
           text: variable,
+          target: target_id,
         };
       });
   };
@@ -30,7 +36,7 @@
 
         blocks: [
           {
-            hideFromPalette: Object.keys(variables).length <= 0,
+            hideFromPalette: false,
             opcode: "setVariable",
             blockType: Scratch.BlockType.COMMAND,
             text: "set [NAME] to [VALUE]",
@@ -46,7 +52,7 @@
             },
           },
           {
-            hideFromPalette: Object.keys(variables).length <= 0,
+            hideFromPalette: false,
             opcode: "changeVariable",
             blockType: Scratch.BlockType.COMMAND,
             text: "change [NAME] by [VALUE]",
@@ -67,17 +73,23 @@
             text: "Make a Variable",
           },
           {
-            hideFromPalette: Object.keys(variables).length <= 0,
+            hideFromPalette: false,
             func: "deleteVariable",
             blockType: Scratch.BlockType.BUTTON,
             text: "Delete a Variable",
           },
           {
-            hideFromPalette: Object.keys(variables).length <= 0,
+            hideFromPalette: false,
             blockType: Scratch.BlockType.LABEL,
             text: "For all sprites:",
           },
-          ...getVariableBlocks(),
+          ...getVariableBlocks(getStageId),
+          {
+            hideFromPalette: false,
+            blockType: Scratch.BlockType.LABEL,
+            text: "For this sprite only:",
+          },
+          ...getVariableBlocks(getSpriteId),
         ],
         menus: {
           VARIABLES: {
@@ -155,14 +167,17 @@
     }
 
     _getAllVariables() {
+      const target_id = vm.runtime._editingTarget.id;
       return Object.keys(variables).sort();
     }
   }
 
-  for (const variable in variables) {
-    Extension.prototype["getVariable_" + variable] = (args, util, info) => {
-      return variables[info.text];
-    };
+  for (const target_id in variables) {
+    for (const variable in variables[target_id]) {
+      Extension.prototype["getVariable_" + target_id + "_" + variable] = (args, util, info) => {
+        return variables[info.target][info.text];
+      };
+    }
   }
 
   Scratch.extensions.register(new Extension());
