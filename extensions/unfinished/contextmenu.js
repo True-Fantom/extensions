@@ -1,13 +1,13 @@
-// Name: ContextMenu
+// Name: Context Menu
 // ID: truefantomcontextmenu
-// Description: ContextMenu.
+// Description: Context Menu.
 // By: TrueFantom <https://scratch.mit.edu/users/TrueFantom/>
 
 (function (Scratch) {
   "use strict";
 
   if (!Scratch.extensions.unsandboxed) {
-    throw new Error("ContextMenu Extension must be run Unsandboxed!");
+    throw new Error("Context Menu Extension must be run Unsandboxed!");
   }
 
   const vm = Scratch.vm;
@@ -15,17 +15,29 @@
 
   const canvas = vm.runtime.renderer.canvas.parentElement;
 
+  let context_menu = false;
+
+  canvas.addEventListener("contextmenu", () =>
+    vm.runtime.startHats("truefantomcontextmenu_whenContextMenu"),
+  );
+
   class ContextMenu {
     getInfo() {
       return {
         id: "truefantomcontextmenu",
-        name: "ContextMenu",
+        name: "Context Menu",
 
         blocks: [
           {
+            opcode: "whenContextMenu",
+            blockType: Scratch.BlockType.EVENT,
+            text: "when context menu tryed open",
+            isEdgeActivated: false,
+          },
+          {
             opcode: "setContextMenu",
             blockType: Scratch.BlockType.COMMAND,
-            text: "set contextmenu to [SET]",
+            text: "set context menu to [SET]",
             arguments: {
               SET: {
                 type: Scratch.ArgumentType.STRING,
@@ -33,11 +45,25 @@
               },
             },
           },
+          {
+            opcode: "isContextMenu",
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: "context menu enabled?",
+          },
         ],
         menus: {
           SET: {
             acceptReporters: true,
-            items: ["true", "false"],
+            items: [
+              {
+                text: "enabled",
+                value: "true",
+              },
+              {
+                text: "disabled",
+                value: "false",
+              },
+            ],
           },
         },
       };
@@ -45,13 +71,17 @@
 
     setContextMenu(args) {
       if (cast.toBoolean(args.SET)) {
-        canvas.removeEventListener("contextmenu", this._nocontextmenu);
+        canvas.removeEventListener("contextmenu", this._noContextMenu);
       } else {
-        canvas.addEventListener("contextmenu", this._nocontextmenu);
+        canvas.addEventListener("contextmenu", this._noContextMenu);
       }
+      context_menu = cast.toBoolean(args.SET);
     }
-    _nocontextmenu(event) {
+    _noContextMenu(event) {
       event.preventDefault();
+    }
+    isContextMenu() {
+      return context_menu;
     }
   }
 
