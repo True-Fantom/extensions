@@ -37,16 +37,7 @@
         menus: {
           SET: {
             acceptReporters: true,
-            items: [
-              {
-                text: "enabled",
-                value: "true",
-              },
-              {
-                text: "disabled",
-                value: "false",
-              },
-            ],
+            items: ["true", "false"],
           },
         },
       };
