@@ -53,7 +53,7 @@
         blockIconURI: iconURI,
         blocks: [
           {
-            func: "сonnect",
+            func: "сonnectToWeDo",
             blockType: Scratch.BlockType.BUTTON,
             text: "Connect to WeDo 1.0",
           },
@@ -186,8 +186,8 @@
       };
     }
 
-    connect() {
-      console.log(HID.devices());
+    сonnectToWeDo() {
+      console.log();
     }
   }
 
